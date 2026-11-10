@@ -1,18 +1,22 @@
+import { useState } from "react";
 import { HERO_VIDEO } from "../data";
 import { AnimatedHeading } from "./AnimatedHeading";
 import { FadeIn } from "./FadeIn";
 import { Navbar } from "./Navbar";
 
 export function Hero() {
+  const [videoReady, setVideoReady] = useState(false);
+
   return (
     <section id="top" className="relative h-svh min-h-[640px] w-full overflow-hidden">
       <video
-        className="absolute inset-0 h-full w-full object-cover"
+        className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${videoReady ? "opacity-100" : "opacity-0"}`}
         autoPlay
         muted
         loop
         playsInline
-        poster="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2000&q=80"
+        preload="auto"
+        onPlaying={() => setVideoReady(true)}
       >
         <source src={HERO_VIDEO} type="video/mp4" />
       </video>
